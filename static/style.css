@@ -1,0 +1,99 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    transition: 0.3s;
+}
+
+.dark {
+    background: #121212;
+    color: white;
+}
+
+.container {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+.dark .container {
+    background: rgba(0,0,0,0.5);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 5px;
+}
+
+.input-box i {
+    margin: 0 10px;
+    color: #667eea;
+}
+
+.input-box input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    width: 100%;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #667eea;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #5a67d8;
+}
+
+.result {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #00ff99;
+}
+
+/* Loader */
+.loader {
+    display: none;
+    margin: 10px auto;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #667eea;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+.toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}

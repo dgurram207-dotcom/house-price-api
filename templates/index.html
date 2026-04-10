@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>House Price Predictor</title>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="toggle">
+    <button onclick="toggleDarkMode()">🌙</button>
+</div>
+
+<div class="container">
+    <h1><i class="fa-solid fa-house"></i> Price Predictor</h1>
+
+    <form id="predictForm" action="/predict" method="post" onsubmit="showLoader()">
+
+        <div class="input-box">
+            <i class="fa-solid fa-ruler-combined"></i>
+            <input type="number" name="area" placeholder="Area (sq ft)" required min="500" max="10000">
+        </div>
+
+        <div class="input-box">
+            <i class="fa-solid fa-bed"></i>
+            <input type="number" name="bedrooms" placeholder="Bedrooms" required min="1" max="10">
+        </div>
+
+        <div class="input-box">
+            <i class="fa-solid fa-clock"></i>
+            <input type="number" name="age" placeholder="Age (years)" required min="0" max="50">
+        </div>
+
+        <div class="input-box">
+            <i class="fa-solid fa-location-dot"></i>
+            <input type="number" name="distance" placeholder="Distance (km)" required min="0" max="50">
+        </div>
+
+        <button type="submit"><i class="fa-solid fa-calculator"></i> Predict</button>
+    </form>
+
+    <!-- Loader -->
+    <div id="loader" class="loader"></div>
+
+    {% if prediction_text %}
+        <div class="result">
+            {{ prediction_text }}
+        </div>
+
+        <!-- Graph -->
+        <canvas id="priceChart"></canvas>
+    {% endif %}
+</div>
+
+<script>
+function showLoader() {
+    document.getElementById("loader").style.display = "block";
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle("dark");
+}
+
+// Graph animation
+{% if prediction_text %}
+const price = parseFloat("{{ prediction_text.split('₹')[1].split(' ')[1] }}");
+
+const ctx = document.getElementById('priceChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Predicted Price'],
+        datasets: [{
+            label: 'Price (Lakhs)',
+            data: [price],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        animation: {
+            duration: 2000
+        }
+    }
+});
+{% endif %}
+</script>
+
+</body>
+</html>
